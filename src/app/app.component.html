@@ -1,39 +1,51 @@
+<div class="flex flex-col justify-center items-center h-screen bg-gradient-to-b from-black to-purple-900">
 
-<div  class="bg-gray-950 flex flex-col justify-center items-center h-screen">
-<h1>(MEGA)COLOR-CONVERTER 9000</h1>
-<!--  <input-->
-<!--    [(colorPicker)]="color"-->
-<!--    [style.background]="color"-->
-<!--    [cpToggle] = true-->
-<!--    [cpDialogDisplay] ="'inline'"-->
-<!--[cpOutputFormat] = "'hex'"-->
-<!--    [cpAlphaChannel] = "'disabled'"-->
-<!--    [cpDisableInput] = true-->
-<!--    class="hidden"-->
-<!--  />-->
+  <h1 class="text-2xl mb-10">(MEGA)COLOR-CONVERTER 9000</h1>
+  <!--  <input-->
+  <!--    [(colorPicker)]="color"-->
+  <!--    [style.background]="color"-->
+  <!--    [cpToggle] = true-->
+  <!--    [cpDialogDisplay] ="'inline'"-->
+  <!--[cpOutputFormat] = "'hex'"-->
+  <!--    [cpAlphaChannel] = "'disabled'"-->
+  <!--    [cpDisableInput] = true-->
+  <!--    class="hidden"-->
+  <!--  />-->
 
-<div class="flex justify-center gap-2 sm:gap-4 md:gap-6 lg:gap-8 ">
-    <div class="card" id="CMYK">
-        <h2 >CMYK</h2>
-        <input type="text" placeholder="C">
-        <input type="text" placeholder="M">
-        <input type="text" placeholder="Y">
-        <input type="text" placeholder="K">
+
+  <div class="flex justify-center gap-2">
+    <div class="card" (mouseenter)="hoverCMYK = true" (mouseleave)="hoverCMYK = false">
+      <h2 class="">CMYK</h2>
+      <input type="number" placeholder="C" [(ngModel)]="cmyk.c" (ngModelChange)="onCMYKChange($event)">
+      <input type="number" placeholder="M" [(ngModel)]="cmyk.m" (ngModelChange)="onCMYKChange($event)">
+      <input type="number" placeholder="Y" [(ngModel)]="cmyk.y" (ngModelChange)="onCMYKChange($event)">
+      <input type="number" placeholder="K" [(ngModel)]="cmyk.k" (ngModelChange)="onCMYKChange($event)">
     </div>
-    <div class="card" id="HLS">
-        <h2 >HLS</h2>
-        <input type="text" placeholder="H">
-        <input type="text" placeholder="L">
-        <input type="text" placeholder="S">
+    <div class="flex flex-col items-center justify-center">
+      <p class="divider"
+        [ngClass]="{ dividerColor : !hoverXYZ && !hoverHLS, dividerColorHighlighted : hoverXYZ || hoverHLS}"><- </p>
+          <p class=" divider" [ngClass]="{ dividerColor : !hoverCMYK, dividerColorHighlighted : hoverCMYK}">-> </p>
     </div>
-    <div class="card" id="XYZ">
-        <h2 >XYZ</h2>
-        <input type="text" placeholder="X">
-        <input type="text" placeholder="Y">
-        <input type="text" placeholder="Z">
+    <div class="card" id="HLS" (mouseenter)="hoverHLS = true" (mouseleave)="hoverHLS = false">
+      <h2>HLS</h2>
+      <input type="number" placeholder="H" [(ngModel)]="hls.h" (ngModelChange)="onHLSChange($event)">
+      <input type="number" placeholder="L" [(ngModel)]="hls.l" (ngModelChange)="onHLSChange($event)">
+      <input type="number" placeholder="S" [(ngModel)]="hls.s" (ngModelChange)="onHLSChange($event)">
     </div>
+    <div class="flex flex-col items-center justify-center">
+      <p class="divider" [ngClass]="{ dividerColor : !hoverXYZ, dividerColorHighlighted : hoverXYZ}"><- </p>
+          <p class=" divider"
+            [ngClass]="{ dividerColor : !hoverCMYK && !hoverHLS, dividerColorHighlighted : hoverCMYK || hoverHLS}"> ->
+          </p>
+    </div>
+    <div class="card" id="XYZ" (mouseenter)="hoverXYZ = true" (mouseleave)="hoverXYZ = false">
+      <h2>XYZ</h2>
+      <input type="number" placeholder="X" [(ngModel)]="xyz.x" (ngModelChange)="onXYZChange($event)">
+      <input type="number" placeholder="Y" [(ngModel)]="xyz.y" (ngModelChange)="onXYZChange($event)">
+      <input type="number" placeholder="Z" [(ngModel)]="xyz.z" (ngModelChange)="onXYZChange($event)">
+    </div>
+  </div>
+
+  <button (click)="reset()">reset</button>
+  <p></p>
 </div>
-
-  <p>{{color}}</p>
-</div>
-
