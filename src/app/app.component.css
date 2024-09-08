@@ -1,9 +1,30 @@
 .card {
-    @apply flex-1 bg-gray-500 p-4 mx-4 flex flex-col h-full mt-10
+    @apply flex-1 p-4 mx-4 flex flex-col h-full mt-10 bg-transparent border-2 rounded-2xl
+}
+
+input {
+    @apply rounded-2xl outline-none
+}
+
+button:hover,
+.slider:hover,
+.card:hover,
+.color-pick:hover {
+    box-shadow: 0 0 0 4px white;
+}
+
+
+
+.color-pick {
+    @apply m-10 p-2 border-2 bg-transparent text-center
+}
+
+.color-pick::placeholder {
+    @apply text-white
 }
 
 input[type=number] {
-    @apply mr-2 w-1/4
+    @apply mr-2 w-1/4 bg-transparent text-white text-center
 }
 
 input[type=range] {
@@ -15,9 +36,19 @@ h1 {
 }
 
 p {
-    @apply text-center
+    @apply text-center text-white
 }
 
 section {
     @apply flex items-center h-full
+}
+
+.slider {
+    -webkit-appearance: none;
+    @apply appearance-none w-2/3 h-6 bg-transparent outline-none rounded-lg border p-2;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    @apply appearance-none w-1 h-3 bg-white cursor-pointer rounded-full
 }

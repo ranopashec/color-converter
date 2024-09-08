@@ -11,6 +11,7 @@ import {
   convertHEXtoRGB,
   convertRGBtoHEX,
 } from "./utils/converters";
+
 @Component({
   selector: "app-root",
   standalone: true,
@@ -19,6 +20,7 @@ import {
   styleUrl: "./app.component.css",
 })
 export class AppComponent {
+  title = "ColorConverter";
   rgb: RGB = { r: 100, g: 2, b: 5 };
   xyz: XYZ = convertRGBtoXYZ(this.rgb);
   hls: HLS = convertXYZtoHLS(this.xyz);
