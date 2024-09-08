@@ -1,55 +1,61 @@
-<div class="flex items-center h-screen">
-    <div class="card RGB">
-        <p>R</p>
-        <section class="RGB" id="R">
-            <input type="number" [(ngModel)]="rgb.r" (ngModelChange)="onRGBChange($event)">
-            <input type="range" [(ngModel)]="rgb.r" (ngModelChange)="onRGBChange($event)">
-        </section>
-        <p>G</p>
-        <section class="RGB" id="G">
-            <input type="number" [(ngModel)]="rgb.g" (ngModelChange)="onRGBChange($event)">
-            <input type="range" [(ngModel)]="rgb.g" (ngModelChange)="onRGBChange($event)">
-        </section>
-        <p>B</p>
-        <section class="RGB" id="B">
-            <input type="number" [(ngModel)]="rgb.b" (ngModelChange)="onRGBChange($event)">
-            <input type="range" [(ngModel)]="rgb.b" (ngModelChange)="onRGBChange($event)">
-        </section>
-    </div>
-    <div class="card XYZ">
-        <p>X</p>
-        <section class="XYZ" id="X">
-            <input type="number" [(ngModel)]="xyz.x" (ngModelChange)="onXYZChange($event)">
-            <input type="range" [(ngModel)]="xyz.x" (ngModelChange)="onXYZChange($event)">
-        </section>
-        <p>Y</p>
-        <section class="XYZ" id="Y">
-            <input type="number" [(ngModel)]="xyz.y" (ngModelChange)="onXYZChange($event)">
-            <input type="range" [(ngModel)]="xyz.y" (ngModelChange)="onXYZChange($event)">
-        </section>
-        <p>Z</p>
-        <section class="XYZ" id="Z">
-            <input type="number" [(ngModel)]="xyz.z" (ngModelChange)="onXYZChange($event)">
-            <input type="range" [(ngModel)]="xyz.z" (ngModelChange)="onXYZChange($event)">
-        </section>
+<div class="flex flex-col items-center h-screen w-screen justify-center"
+    [style]="'background: linear-gradient(' + color + ' 0%, black 30%, black 70%, ' + color + ' 100%)'">
+    <div class="flex items-center h-1/3">
+        <div class="card RGB">
+            <p>R</p>
+            <section class="RGB" id="R">
+                <input type="number" [(ngModel)]="rgb.r" (ngModelChange)="onRGBChange($event)">
+                <input type="range" min="0" max="255" [(ngModel)]="rgb.r" (ngModelChange)="onRGBChange($event)">
+            </section>
+            <p>G</p>
+            <section class="RGB" id="G">
+                <input type="number" [(ngModel)]="rgb.g" (ngModelChange)="onRGBChange($event)">
+                <input type="range" min="0" max="255" [(ngModel)]="rgb.g" (ngModelChange)="onRGBChange($event)">
+            </section>
+            <p>B</p>
+            <section class="RGB" id="B">
+                <input type="number" [(ngModel)]="rgb.b" (ngModelChange)="onRGBChange($event)">
+                <input type="range" min="0" max="255" [(ngModel)]="rgb.b" (ngModelChange)="onRGBChange($event)">
+            </section>
+        </div>
+        <div class="card XYZ">
+            <p>X</p>
+            <section class="XYZ" id="X">
+                <input type="number" [(ngModel)]="xyz.x" (ngModelChange)="onXYZChange($event)">
+                <input type="range" min="0" max="95" [(ngModel)]="xyz.x" (ngModelChange)="onXYZChange($event)">
+            </section>
+            <p>Y</p>
+            <section class="XYZ" id="Y">
+                <input type="number" [(ngModel)]="xyz.y" (ngModelChange)="onXYZChange($event)">
+                <input type="range" min="0" max="100" [(ngModel)]="xyz.y" (ngModelChange)="onXYZChange($event)">
+            </section>
+            <p>Z</p>
+            <section class="XYZ" id="Z">
+                <input type="number" [(ngModel)]="xyz.z" (ngModelChange)="onXYZChange($event)">
+                <input type="range" min="0" max="108" [(ngModel)]="xyz.z" (ngModelChange)="onXYZChange($event)">
+            </section>
 
-    </div>
-    <div class="card HLS">
-        <p>H</p>
-        <section class="HLS" id="H">
-            <input type="number" [(ngModel)]="hls.h" (ngModelChange)="onHLSChange($event)">
-            <input type="range" [(ngModel)]="hls.h" (ngModelChange)="onHLSChange($event)">
-        </section>
-        <p>L</p>
-        <section class="HLS" id="L">
-            <input type="number" [(ngModel)]="hls.l" (ngModelChange)="onHLSChange($event)">
-            <input type="range" [(ngModel)]="hls.l" (ngModelChange)="onHLSChange($event)">
-        </section>
-        <p>S</p>
-        <section class="HLS" id="S">
-            <input type="number" [(ngModel)]="hls.s" (ngModelChange)="onHLSChange($event)">
-            <input type="range" [(ngModel)]="hls.s" (ngModelChange)="onHLSChange($event)">
-        </section>
+        </div>
+        <div class="card HLS">
+            <p>H</p>
+            <section class="HLS" id="H">
+                <input type="number" [(ngModel)]="hls.h" (ngModelChange)="onHLSChange($event)">
+                <input type="range" min="0" max="360" [(ngModel)]="hls.h" (ngModelChange)="onHLSChange($event)">
+            </section>
+            <p>L</p>
+            <section class="HLS" id="L">
+                <input type="number" [(ngModel)]="hls.l" (ngModelChange)="onHLSChange($event)">
+                <input type="range" min="0" max="100" [(ngModel)]="hls.l" (ngModelChange)="onHLSChange($event)">
+            </section>
+            <p>S</p>
+            <section class="HLS" id="S">
+                <input type="number" [(ngModel)]="hls.s" (ngModelChange)="onHLSChange($event)">
+                <input type="range" min="0" max="100" [(ngModel)]="hls.s" (ngModelChange)="onHLSChange($event)">
+            </section>
 
+        </div>
     </div>
+    <input class="w-11/12 m-10" [style.background]="color" [(colorPicker)]="color"
+        (colorPickerChange)="onColorChange($event)" [cpWidth]="'600px'" [cpAlphaChannel]="'disabled'"
+        [cpOutputFormat]="'hex'" [cpDisableInput]=true />
 </div>

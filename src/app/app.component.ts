@@ -8,6 +8,8 @@ import {
   convertXYZtoHLS,
   convertRGBtoXYZ,
   convertXYZtoRGB,
+  convertHEXtoRGB,
+  convertRGBtoHEX,
 } from "./utils/converters";
 @Component({
   selector: "app-root",
@@ -17,27 +19,62 @@ import {
   styleUrl: "./app.component.css",
 })
 export class AppComponent {
-  rgb: RGB = { r: 1, g: 2, b: 5 };
+  rgb: RGB = { r: 100, g: 2, b: 5 };
   xyz: XYZ = convertRGBtoXYZ(this.rgb);
   hls: HLS = convertXYZtoHLS(this.xyz);
 
+  color = convertRGBtoHEX(this.rgb);
+
   reset() {
-    this.rgb = { r: 0, g: 0, b: 0 };
-    this.xyz = { x: 0, y: 0, z: 0 };
-    this.hls = { h: 0, l: 0, s: 0 };
-  }
-  onRGBChange(event: any) {
+    this.color = "#000000";
+    this.rgb = convertHEXtoRGB(this.color);
     this.xyz = convertRGBtoXYZ(this.rgb);
     this.hls = convertXYZtoHLS(this.xyz);
   }
-
-  onXYZChange(event: any) {
-    this.rgb = convertXYZtoRGB(this.xyz);
+  onColorChange(event: any) {
+    this.rgb = convertHEXtoRGB(this.color);
+    this.xyz = convertRGBtoXYZ(this.rgb);
     this.hls = convertXYZtoHLS(this.xyz);
   }
+  onRGBChange(event: any) {
+    for (const key in this.rgb) {
+      const value = this.rgb[key as keyof RGB];
+      if (value < 0 || value > 255) {
+        this.rgb[key as keyof RGB] = 0;
+      }
+    }
+    this.xyz = convertRGBtoXYZ(this.rgb);
+    this.hls = convertXYZtoHLS(this.xyz);
+    this.color = convertRGBtoHEX(this.rgb);
+  }
+
+  onXYZChange(event: any) {
+    if (this.xyz.x > 95.05 || this.xyz.x < 0) {
+      this.xyz.x = 0;
+    }
+    if (this.xyz.y > 100 || this.xyz.y < 0) {
+      this.xyz.y = 0;
+    }
+    if (this.xyz.z > 108.883 || this.xyz.z < 0) {
+      this.xyz.z = 0;
+    }
+    this.rgb = convertXYZtoRGB(this.xyz);
+    this.hls = convertXYZtoHLS(this.xyz);
+    this.color = convertRGBtoHEX(this.rgb);
+  }
   onHLSChange(event: any) {
+    if (this.hls.h < 0 || this.hls.h > 360) {
+      this.hls.h = 0;
+    }
+    if (this.hls.s < 0 || this.hls.s > 100) {
+      this.hls.s = 0;
+    }
+    if (this.hls.l < 0 || this.hls.l > 100) {
+      this.hls.l = 0;
+    }
     this.xyz = convertHLStoXYZ(this.hls);
     this.rgb = convertXYZtoRGB(this.xyz);
+    this.color = convertRGBtoHEX(this.rgb);
   }
 
   xyzzmin = 1;

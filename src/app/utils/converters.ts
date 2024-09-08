@@ -1,4 +1,17 @@
 import { RGB, HLS, XYZ } from "../models/schemes";
+export function convertRGBtoHEX(rgb: RGB): string {
+  return `#${[rgb.r, rgb.g, rgb.b]
+    .map((x) => x.toString(16).padStart(2, "0"))
+    .join("")}`;
+}
+export function convertHEXtoRGB(hex: string): RGB {
+  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return {
+    r: parseInt(result!![1], 16),
+    g: parseInt(result!![2], 16),
+    b: parseInt(result!![3], 16),
+  };
+}
 
 // RGB to XYZ
 export function convertRGBtoXYZ(rgb: RGB): XYZ {
