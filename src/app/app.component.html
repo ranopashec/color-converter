@@ -1,55 +1,87 @@
-<div class="flex flex-col justify-center items-center h-screen bg-gradient-to-b from-black to-purple-900">
+<div class="flex flex-col items-center h-screen w-screen justify-center"
+    [style]="'background: linear-gradient(' + color + ' 0%, black 20%, black 70%, ' + color + ' 100%)'">
+    <div class="flex items-center h-1/3">
+        <div class="card RGB" [style.border-color]="(color == '#000000' ? 'white' : color)" (mouseenter)="hoverRGB=true"
+            (mouseleave)="hoverRGB=false">
+            <p>R</p>
+            <section class=" RGB" id="R">
+                <input type="number" [(ngModel)]="rgb.r" (ngModelChange)="onRGBChange($event)">
+                <input class="slider" type="range" min="0" max="255" [(ngModel)]="rgb.r"
+                    (ngModelChange)="onRGBChange($event)">
+            </section>
+            <p>G</p>
+            <section class="RGB" id="G">
+                <input type="number" [(ngModel)]="rgb.g" (ngModelChange)="onRGBChange($event)">
+                <input class="slider" type="range" min="0" max="255" [(ngModel)]="rgb.g"
+                    (ngModelChange)="onRGBChange($event)">
+            </section>
+            <p>B</p>
+            <section class="RGB" id="B">
+                <input type="number" [(ngModel)]="rgb.b" (ngModelChange)="onRGBChange($event)">
+                <input class="slider" type="range" min="0" max="255" [(ngModel)]="rgb.b"
+                    (ngModelChange)="onRGBChange($event)">
+            </section>
+        </div>
+        <div class="arrow">
+            <p *ngIf="hoverRGB" [style.color]="(color == '#000000' ? 'white' : color)">
+                ->
+            </p>
+            <p *ngIf="hoverHLS || hoverXYZ" [style.color]="(color == '#000000' ? 'white' : color)">
+                <- </p>
+        </div>
+        <div class="card XYZ" [style.border-color]="(color == '#000000' ? 'white' : color)" (mouseenter)="hoverXYZ=true"
+            (mouseleave)="hoverXYZ=false">
+            <p>X</p>
+            <section class=" XYZ" id="X">
+                <input type="number" [(ngModel)]="xyz.x" (ngModelChange)="onXYZChange($event)">
+                <input class="slider" type="range" min="0" max="95" [(ngModel)]="xyz.x"
+                    (ngModelChange)="onXYZChange($event)">
+            </section>
+            <p>Y</p>
+            <section class="XYZ" id="Y">
+                <input type="number" [(ngModel)]="xyz.y" (ngModelChange)="onXYZChange($event)">
+                <input class="slider" type="range" min="0" max="100" [(ngModel)]="xyz.y"
+                    (ngModelChange)="onXYZChange($event)">
+            </section>
+            <p>Z</p>
+            <section class="XYZ" id="Z">
+                <input type="number" [(ngModel)]="xyz.z" (ngModelChange)="onXYZChange($event)">
+                <input class="slider" type="range" min="0" max="108" [(ngModel)]="xyz.z"
+                    (ngModelChange)="onXYZChange($event)">
+            </section>
 
-  <h1 class="text-2xl mb-10">(MEGA)COLOR-CONVERTER 9000</h1>
-  <!--  <input-->
-  <!--    [(colorPicker)]="color"-->
-  <!--    [style.background]="color"-->
-  <!--    [cpToggle] = true-->
-  <!--    [cpDialogDisplay] ="'inline'"-->
-  <!--[cpOutputFormat] = "'hex'"-->
-  <!--    [cpAlphaChannel] = "'disabled'"-->
-  <!--    [cpDisableInput] = true-->
-  <!--    class="hidden"-->
-  <!--  />-->
+        </div>
+        <div class="arrow">
+            <p *ngIf="hoverRGB || hoverXYZ" [style.color]="(color == '#000000' ? 'white' : color)">
+                ->
+            </p>
+            <p *ngIf="hoverHLS" [style.color]="(color == '#000000' ? 'white' : color)">
+                <- </p>
+        </div>
+        <div class="card HLS" [style.border-color]="(color == '#000000' ? 'white' : color)" (mouseenter)="hoverHLS=true"
+            (mouseleave)="hoverHLS=false">
+            <p>H</p>
+            <section class="HLS" id="H">
+                <input type="number" [(ngModel)]="hls.h" (ngModelChange)="onHLSChange($event)">
+                <input class="slider" type="range" min="0" max="360" [(ngModel)]="hls.h"
+                    (ngModelChange)="onHLSChange($event)">
+            </section>
+            <p>L</p>
+            <section class="HLS" id="L">
+                <input type="number" [(ngModel)]="hls.l" (ngModelChange)="onHLSChange($event)">
+                <input class="slider" type="range" min="0" max="100" [(ngModel)]="hls.l"
+                    (ngModelChange)="onHLSChange($event)">
+            </section>
+            <p>S</p>
+            <section class="HLS" id="S">
+                <input type="number" [(ngModel)]="hls.s" (ngModelChange)="onHLSChange($event)">
+                <input class="slider" type="range" min="0" max="100" [(ngModel)]="hls.s"
+                    (ngModelChange)="onHLSChange($event)">
+            </section>
 
-
-  <div class="flex justify-center gap-2">
-    <div class="card" (mouseenter)="hoverCMYK = true" (mouseleave)="hoverCMYK = false">
-      <h2 class="">CMYK</h2>
-      <input type="number" placeholder="C" [(ngModel)]="cmyk.c" (ngModelChange)="onCMYKChange($event)">
-      <input type="number" placeholder="M" [(ngModel)]="cmyk.m" (ngModelChange)="onCMYKChange($event)">
-      <input type="number" placeholder="Y" [(ngModel)]="cmyk.y" (ngModelChange)="onCMYKChange($event)">
-      <input type="number" placeholder="K" [(ngModel)]="cmyk.k" (ngModelChange)="onCMYKChange($event)">
+        </div>
     </div>
-    <div class="flex flex-col items-center justify-center">
-      <p class="divider"
-        [ngClass]="{ dividerColor : !hoverXYZ && !hoverHLS, dividerColorHighlighted : hoverXYZ || hoverHLS}"><- </p>
-          <p class=" divider" [ngClass]="{ dividerColor : !hoverCMYK, dividerColorHighlighted : hoverCMYK}">-> </p>
-    </div>
-    <div class="card" id="HLS" (mouseenter)="hoverHLS = true" (mouseleave)="hoverHLS = false">
-      <h2>HLS</h2>
-      <input type="number" placeholder="H" [(ngModel)]="hls.h" (ngModelChange)="onHLSChange($event)">
-      <input type="number" placeholder="L" [(ngModel)]="hls.l" (ngModelChange)="onHLSChange($event)">
-      <input type="number" placeholder="S" [(ngModel)]="hls.s" (ngModelChange)="onHLSChange($event)">
-    </div>
-    <div class="flex flex-col items-center justify-center">
-      <p class="divider" [ngClass]="{ dividerColor : !hoverXYZ, dividerColorHighlighted : hoverXYZ}"><- </p>
-          <p class=" divider"
-            [ngClass]="{ dividerColor : !hoverCMYK && !hoverHLS, dividerColorHighlighted : hoverCMYK || hoverHLS}"> ->
-          </p>
-    </div>
-    <div class="card" id="XYZ" (mouseenter)="hoverXYZ = true" (mouseleave)="hoverXYZ = false">
-      <h2>XYZ</h2>
-      <input type="number" placeholder="X" [(ngModel)]="xyz.x" (ngModelChange)="onXYZChange($event)">
-      <input type="number" placeholder="Y" [(ngModel)]="xyz.y" (ngModelChange)="onXYZChange($event)">
-      <div class="flex items-center mx-2 mb-2 ">
-        <input type="range" min="xyzzmin" max="xyzzmax" value="(xyzzmax+zyzzmin)/2" class="slider mr-2" id="xyzz"
-          [(ngModel)]="xyz.z">
-        <input type="number" placeholder="Z" [(ngModel)]="xyz.z" (ngModelChange)="onXYZChange($event)" class="border">
-      </div>
-    </div>
-  </div>
-
-  <button (click)="reset()">reset</button>
-  <p></p>
+    <input class="color-pick" [placeholder]="'click here'" [style.border-color]="(color == '#000000' ? 'white' : color)"
+        [(colorPicker)]="color" (colorPickerChange)="onColorChange($event)" [cpWidth]="'600px'"
+        [cpAlphaChannel]="'disabled'" [cpOutputFormat]="'hex'" [cpDisableInput]=true />
 </div>

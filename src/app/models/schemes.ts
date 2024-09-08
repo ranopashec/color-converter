@@ -1,22 +1,15 @@
 export interface RGB {
-  r: number | null;
-  g: number | null;
-  b: number | null;
+  r: number;
+  g: number;
+  b: number;
 }
 export interface HLS {
-  h: number | null;
-  l: number | null;
-  s: number | null;
+  h: number;
+  l: number;
+  s: number;
 }
-export interface CMYK {
-  c: number | null;
-  m: number | null;
-  y: number | null;
-  k: number | null;
-}
-
 export interface XYZ {
-  x: number | null;
-  y: number | null;
-  z: number | null;
+  x: number;
+  y: number;
+  z: number;
 }

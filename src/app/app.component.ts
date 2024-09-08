@@ -1,69 +1,87 @@
 import { Component } from "@angular/core";
-import { FormsModule } from "@angular/forms"; // Import FormsModule
+import { FormsModule } from "@angular/forms";
 import { ColorPickerModule } from "ngx-color-picker";
-import { NgClass } from "@angular/common";
-import { RGB, CMYK, XYZ, HLS } from "./models/schemes";
+import { NgClass, NgIf } from "@angular/common";
+import { RGB, XYZ, HLS } from "./models/schemes";
 import {
-  convertCMYKtoHLS,
-  convertHLStoRGB,
-  convertRGBtoHLS,
+  convertHLStoXYZ,
+  convertXYZtoHLS,
   convertRGBtoXYZ,
   convertXYZtoRGB,
-  convertHLStoCMYK,
-} from "./services/converters";
+  convertHEXtoRGB,
+  convertRGBtoHEX,
+} from "./utils/converters";
+
 @Component({
   selector: "app-root",
   standalone: true,
-  imports: [ColorPickerModule, FormsModule, NgClass],
+  imports: [ColorPickerModule, NgClass, FormsModule, NgIf],
   templateUrl: "./app.component.html",
   styleUrl: "./app.component.css",
 })
 export class AppComponent {
-  title = "color-converter";
+  title = "ColorConverter";
+  rgb: RGB = { r: 100, g: 2, b: 5 };
+  xyz: XYZ = convertRGBtoXYZ(this.rgb);
+  hls: HLS = convertXYZtoHLS(this.xyz);
 
-  rgb: RGB = { r: null, g: null, b: null };
-
-  cmyk: CMYK = { c: null, m: null, y: null, k: null };
-  xyz: XYZ = { x: null, y: null, z: null };
-  hls: HLS = { h: null, l: null, s: null };
+  color = convertRGBtoHEX(this.rgb);
 
   reset() {
-    this.rgb = { r: null, g: null, b: null };
-    this.cmyk = { c: null, m: null, y: null, k: null };
-    this.xyz = { x: null, y: null, z: null };
-    this.hls = { h: null, l: null, s: null };
+    this.color = "#000000";
+    this.rgb = convertHEXtoRGB(this.color);
+    this.xyz = convertRGBtoXYZ(this.rgb);
+    this.hls = convertXYZtoHLS(this.xyz);
   }
-  onCMYKChange(event: any) {
-    for (const key in this.cmyk) {
-      const value = this.cmyk[key as keyof CMYK];
-      if (value && (value > 100 || value < 0)) {
-        this.cmyk[key as keyof CMYK] = null;
+  onColorChange(event: any) {
+    this.rgb = convertHEXtoRGB(this.color);
+    this.xyz = convertRGBtoXYZ(this.rgb);
+    this.hls = convertXYZtoHLS(this.xyz);
+  }
+  onRGBChange(event: any) {
+    for (const key in this.rgb) {
+      const value = this.rgb[key as keyof RGB];
+      if (value < 0 || value > 255) {
+        this.rgb[key as keyof RGB] = 0;
       }
     }
-    if (this.cmyk.c && this.cmyk.m && this.cmyk.y && this.cmyk.k) {
-      this.hls = convertCMYKtoHLS(this.cmyk);
-      this.xyz = convertRGBtoXYZ(convertHLStoRGB(this.hls));
-    }
+    this.xyz = convertRGBtoXYZ(this.rgb);
+    this.hls = convertXYZtoHLS(this.xyz);
+    this.color = convertRGBtoHEX(this.rgb);
   }
 
-  onHLSChange(event: any) {
-    // TODO: VALIDATION
-    if (this.hls.h && this.hls.l && this.hls.s) {
-      this.cmyk = convertHLStoCMYK(this.hls);
-      this.xyz = convertRGBtoXYZ(convertHLStoRGB(this.hls));
-    }
-  }
   onXYZChange(event: any) {
-    // TODO: VALIDATION
-    if (this.xyz.x && this.xyz.y && this.xyz.z) {
-      this.hls = convertRGBtoHLS(convertXYZtoRGB(this.xyz));
-      this.cmyk = convertHLStoCMYK(this.hls);
+    if (this.xyz.x > 95.05 || this.xyz.x < 0) {
+      this.xyz.x = 0;
     }
+    if (this.xyz.y > 100 || this.xyz.y < 0) {
+      this.xyz.y = 0;
+    }
+    if (this.xyz.z > 108.883 || this.xyz.z < 0) {
+      this.xyz.z = 0;
+    }
+    this.rgb = convertXYZtoRGB(this.xyz);
+    this.hls = convertXYZtoHLS(this.xyz);
+    this.color = convertRGBtoHEX(this.rgb);
+  }
+  onHLSChange(event: any) {
+    if (this.hls.h < 0 || this.hls.h > 360) {
+      this.hls.h = 0;
+    }
+    if (this.hls.s < 0 || this.hls.s > 100) {
+      this.hls.s = 0;
+    }
+    if (this.hls.l < 0 || this.hls.l > 100) {
+      this.hls.l = 0;
+    }
+    this.xyz = convertHLStoXYZ(this.hls);
+    this.rgb = convertXYZtoRGB(this.xyz);
+    this.color = convertRGBtoHEX(this.rgb);
   }
 
   xyzzmin = 1;
 
-  hoverCMYK = false;
-  hoverHLS = false;
+  hoverRGB = false;
   hoverXYZ = false;
+  hoverHLS = false;
 }
