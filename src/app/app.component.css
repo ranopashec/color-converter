@@ -1,0 +1,23 @@
+.card {
+    @apply flex-1 bg-gray-500 p-4 m-2 h-1/3 mx-5 flex flex-col
+}
+
+input[type=number] {
+    @apply mr-2 w-1/4
+}
+
+input[type=range] {
+    @apply w-3/4
+}
+
+h1 {
+    @apply text-center
+}
+
+p {
+    @apply text-center
+}
+
+section {
+    @apply flex items-center h-full
+}

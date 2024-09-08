@@ -1,64 +1,43 @@
 import { Component } from "@angular/core";
-import { FormsModule } from "@angular/forms"; // Import FormsModule
+import { FormsModule } from "@angular/forms";
 import { ColorPickerModule } from "ngx-color-picker";
 import { NgClass } from "@angular/common";
-import { RGB, CMYK, XYZ, HLS } from "./models/schemes";
+import { RGB, XYZ, HLS } from "./models/schemes";
 import {
-  convertCMYKtoHLS,
-  convertHLStoRGB,
-  convertRGBtoHLS,
+  convertHLStoXYZ,
+  convertXYZtoHLS,
   convertRGBtoXYZ,
   convertXYZtoRGB,
-  convertHLStoCMYK,
-} from "./services/converters";
+} from "./utils/converters";
 @Component({
   selector: "app-root",
   standalone: true,
-  imports: [ColorPickerModule, FormsModule, NgClass],
+  imports: [ColorPickerModule, NgClass, FormsModule],
   templateUrl: "./app.component.html",
   styleUrl: "./app.component.css",
 })
 export class AppComponent {
-  title = "color-converter";
-
-  rgb: RGB = { r: null, g: null, b: null };
-
-  cmyk: CMYK = { c: null, m: null, y: null, k: null };
-  xyz: XYZ = { x: null, y: null, z: null };
-  hls: HLS = { h: null, l: null, s: null };
+  rgb: RGB = { r: 1, g: 2, b: 5 };
+  xyz: XYZ = convertRGBtoXYZ(this.rgb);
+  hls: HLS = convertXYZtoHLS(this.xyz);
 
   reset() {
-    this.rgb = { r: null, g: null, b: null };
-    this.cmyk = { c: null, m: null, y: null, k: null };
-    this.xyz = { x: null, y: null, z: null };
-    this.hls = { h: null, l: null, s: null };
+    this.rgb = { r: 0, g: 0, b: 0 };
+    this.xyz = { x: 0, y: 0, z: 0 };
+    this.hls = { h: 0, l: 0, s: 0 };
   }
-  onCMYKChange(event: any) {
-    for (const key in this.cmyk) {
-      const value = this.cmyk[key as keyof CMYK];
-      if (value && (value > 100 || value < 0)) {
-        this.cmyk[key as keyof CMYK] = null;
-      }
-    }
-    if (this.cmyk.c && this.cmyk.m && this.cmyk.y && this.cmyk.k) {
-      this.hls = convertCMYKtoHLS(this.cmyk);
-      this.xyz = convertRGBtoXYZ(convertHLStoRGB(this.hls));
-    }
+  onRGBChange(event: any) {
+    this.xyz = convertRGBtoXYZ(this.rgb);
+    this.hls = convertXYZtoHLS(this.xyz);
   }
 
-  onHLSChange(event: any) {
-    // TODO: VALIDATION
-    if (this.hls.h && this.hls.l && this.hls.s) {
-      this.cmyk = convertHLStoCMYK(this.hls);
-      this.xyz = convertRGBtoXYZ(convertHLStoRGB(this.hls));
-    }
-  }
   onXYZChange(event: any) {
-    // TODO: VALIDATION
-    if (this.xyz.x && this.xyz.y && this.xyz.z) {
-      this.hls = convertRGBtoHLS(convertXYZtoRGB(this.xyz));
-      this.cmyk = convertHLStoCMYK(this.hls);
-    }
+    this.rgb = convertXYZtoRGB(this.xyz);
+    this.hls = convertXYZtoHLS(this.xyz);
+  }
+  onHLSChange(event: any) {
+    this.xyz = convertHLStoXYZ(this.hls);
+    this.rgb = convertXYZtoRGB(this.xyz);
   }
 
   xyzzmin = 1;
