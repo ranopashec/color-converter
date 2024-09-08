@@ -1,27 +1,24 @@
-# ColorConverter
+# Задача
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.2.
+Изучить цветовые модели: RGB, CMYK, HSV, HLS, XYZ, LAB, переход от одной модели к другой, исследовать цветовой график МКО.
 
-## Development server
+Создать приложение/веб-приложение, позволяющее пользователю выбирать, а затем интерактивно менять цвет, показывая при этом его составляющие в трех моделях одновременно (варианты приведены в таблице ниже).
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## На проверку сдаются:
 
-## Code scaffolding
+- **exe**, который должен работать на ПК преподавателя под Windows/веб-приложение, размещенное в общем доступе;
+- Исходный код приложения на **GitHub**;
+- Сопроводительная документация.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Основные требования к приложению
 
-## Build
+- В интерфейсе дать возможность пользователю задавать точные цвета (поля ввода), выбирать цвета из палитры (аналогично графическим редакторам), плавно изменять цвета (например, ползунки).
+- При изменении любой компоненты цвета все остальные представления этого цвета в двух других цветовых моделях пересчитываются автоматически.
+- При «некорректных цветах» (например, при переходе из XYZ в RGB в вашем расчете получился выход за границы изменения рассчитываемого параметра) выдавать ненавязчивое предупреждение, что происходит обрезание-округление и т.п.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Баллы
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- Корректность перевода из одной модели в другую: **40 баллов**.
+- Дружелюбный и удобный интерфейс: **30 баллов**.
+- Возможность задания цвета в каждой из трех моделей тремя способами: **20 баллов**.
+- Автоматический пересчет цвета во всех моделях при изменении любой из координат: **20 баллов**.
