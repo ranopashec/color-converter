@@ -1,9 +1,10 @@
 <div class="flex flex-col items-center h-screen w-screen justify-center"
-    [style]="'background: linear-gradient(' + color + ' 0%, black 30%, black 70%, ' + color + ' 100%)'">
+    [style]="'background: linear-gradient(' + color + ' 0%, black 20%, black 70%, ' + color + ' 100%)'">
     <div class="flex items-center h-1/3">
-        <div class="card RGB" [style.border-color]="(color == '#000000' ? 'white' : color)">
+        <div class="card RGB" [style.border-color]="(color == '#000000' ? 'white' : color)" (mouseenter)="hoverRGB=true"
+            (mouseleave)="hoverRGB=false">
             <p>R</p>
-            <section class="RGB" id="R">
+            <section class=" RGB" id="R">
                 <input type="number" [(ngModel)]="rgb.r" (ngModelChange)="onRGBChange($event)">
                 <input class="slider" type="range" min="0" max="255" [(ngModel)]="rgb.r"
                     (ngModelChange)="onRGBChange($event)">
@@ -21,9 +22,17 @@
                     (ngModelChange)="onRGBChange($event)">
             </section>
         </div>
-        <div class="card XYZ" [style.border-color]="(color == '#000000' ? 'white' : color)">
+        <div class="arrow">
+            <p *ngIf="hoverRGB" [style.color]="(color == '#000000' ? 'white' : color)">
+                ->
+            </p>
+            <p *ngIf="hoverHLS || hoverXYZ" [style.color]="(color == '#000000' ? 'white' : color)">
+                <- </p>
+        </div>
+        <div class="card XYZ" [style.border-color]="(color == '#000000' ? 'white' : color)" (mouseenter)="hoverXYZ=true"
+            (mouseleave)="hoverXYZ=false">
             <p>X</p>
-            <section class="XYZ" id="X">
+            <section class=" XYZ" id="X">
                 <input type="number" [(ngModel)]="xyz.x" (ngModelChange)="onXYZChange($event)">
                 <input class="slider" type="range" min="0" max="95" [(ngModel)]="xyz.x"
                     (ngModelChange)="onXYZChange($event)">
@@ -42,7 +51,15 @@
             </section>
 
         </div>
-        <div class="card HLS" [style.border-color]="(color == '#000000' ? 'white' : color)">
+        <div class="arrow">
+            <p *ngIf="hoverRGB || hoverXYZ" [style.color]="(color == '#000000' ? 'white' : color)">
+                ->
+            </p>
+            <p *ngIf="hoverHLS" [style.color]="(color == '#000000' ? 'white' : color)">
+                <- </p>
+        </div>
+        <div class="card HLS" [style.border-color]="(color == '#000000' ? 'white' : color)" (mouseenter)="hoverHLS=true"
+            (mouseleave)="hoverHLS=false">
             <p>H</p>
             <section class="HLS" id="H">
                 <input type="number" [(ngModel)]="hls.h" (ngModelChange)="onHLSChange($event)">

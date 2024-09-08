@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { ColorPickerModule } from "ngx-color-picker";
-import { NgClass } from "@angular/common";
+import { NgClass, NgIf } from "@angular/common";
 import { RGB, XYZ, HLS } from "./models/schemes";
 import {
   convertHLStoXYZ,
@@ -15,7 +15,7 @@ import {
 @Component({
   selector: "app-root",
   standalone: true,
-  imports: [ColorPickerModule, NgClass, FormsModule],
+  imports: [ColorPickerModule, NgClass, FormsModule, NgIf],
   templateUrl: "./app.component.html",
   styleUrl: "./app.component.css",
 })
@@ -81,7 +81,7 @@ export class AppComponent {
 
   xyzzmin = 1;
 
-  hoverCMYK = false;
-  hoverHLS = false;
+  hoverRGB = false;
   hoverXYZ = false;
+  hoverHLS = false;
 }
