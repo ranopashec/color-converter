@@ -60,6 +60,9 @@ export class AppComponent {
       this.cmyk = convertHLStoCMYK(this.hls);
     }
   }
+
+  xyzzmin = 1;
+
   hoverCMYK = false;
   hoverHLS = false;
   hoverXYZ = false;

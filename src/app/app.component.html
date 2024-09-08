@@ -42,7 +42,11 @@
       <h2>XYZ</h2>
       <input type="number" placeholder="X" [(ngModel)]="xyz.x" (ngModelChange)="onXYZChange($event)">
       <input type="number" placeholder="Y" [(ngModel)]="xyz.y" (ngModelChange)="onXYZChange($event)">
-      <input type="number" placeholder="Z" [(ngModel)]="xyz.z" (ngModelChange)="onXYZChange($event)">
+      <div class="flex items-center mx-2 mb-2 ">
+        <input type="range" min="xyzzmin" max="xyzzmax" value="(xyzzmax+zyzzmin)/2" class="slider mr-2" id="xyzz"
+          [(ngModel)]="xyz.z">
+        <input type="number" placeholder="Z" [(ngModel)]="xyz.z" (ngModelChange)="onXYZChange($event)" class="border">
+      </div>
     </div>
   </div>
 
