@@ -77,36 +77,40 @@ export class AppComponent {
   }
 
   onXYZChange(event: any) {
-    if (this.xyz.x > 95.05 || this.xyz.x < 0) {
-      this.xyz.x = 0;
+    if (event != null) {
+      if (this.xyz.x > 95.05 || this.xyz.x < 0) {
+        this.xyz.x = 0;
+      }
+      if (this.xyz.y > 100 || this.xyz.y < 0) {
+        this.xyz.y = 0;
+      }
+      if (this.xyz.z > 108.883 || this.xyz.z < 0) {
+        this.xyz.z = 0;
+      }
+      this.rgb = convertXYZtoRGB(this.xyz);
+      this.hls = convertXYZtoHLS(this.xyz);
+      this.color = convertRGBtoHEX(this.rgb);
+      console.log(this.color);
+      this.normalize();
     }
-    if (this.xyz.y > 100 || this.xyz.y < 0) {
-      this.xyz.y = 0;
-    }
-    if (this.xyz.z > 108.883 || this.xyz.z < 0) {
-      this.xyz.z = 0;
-    }
-    this.rgb = convertXYZtoRGB(this.xyz);
-    this.hls = convertXYZtoHLS(this.xyz);
-    this.color = convertRGBtoHEX(this.rgb);
-    console.log(this.color);
-    this.normalize();
   }
   onHLSChange(event: any) {
-    if (this.hls.h < 0 || this.hls.h > 360) {
-      this.hls.h = 0;
+    if (event != null) {
+      if (this.hls.h < 0 || this.hls.h > 360) {
+        this.hls.h = 0;
+      }
+      if (this.hls.s < 0 || this.hls.s > 100) {
+        this.hls.s = 0;
+      }
+      if (this.hls.l < 0 || this.hls.l > 100) {
+        this.hls.l = 0;
+      }
+      this.xyz = convertHLStoXYZ(this.hls);
+      this.rgb = convertXYZtoRGB(this.xyz);
+      this.color = convertRGBtoHEX(this.rgb);
+      console.log(this.color);
+      this.normalize();
     }
-    if (this.hls.s < 0 || this.hls.s > 100) {
-      this.hls.s = 0;
-    }
-    if (this.hls.l < 0 || this.hls.l > 100) {
-      this.hls.l = 0;
-    }
-    this.xyz = convertHLStoXYZ(this.hls);
-    this.rgb = convertXYZtoRGB(this.xyz);
-    this.color = convertRGBtoHEX(this.rgb);
-    console.log(this.color);
-    this.normalize();
   }
 
   xyzzmin = 1;
