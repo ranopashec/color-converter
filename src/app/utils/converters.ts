@@ -8,6 +8,10 @@ export function testAllConverters(): void {
 }
 
 export function convertRGBtoHEX(rgb: RGB): string {
+  rgb.r = Math.round(rgb.r);
+  rgb.g = Math.round(rgb.g);
+  rgb.b = Math.round(rgb.b);
+
   return `#${[rgb.r, rgb.g, rgb.b]
     .map((x) => x.toString(16).padStart(2, "0"))
     .join("")}`;
