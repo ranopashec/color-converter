@@ -71,7 +71,6 @@ export class AppComponent {
       this.xyz = convertRGBtoXYZ(this.rgb);
       this.hls = convertXYZtoHLS(this.xyz);
       this.color = convertRGBtoHEX(this.rgb);
-      console.log(this.color);
       this.normalize();
     }
   }
@@ -90,7 +89,6 @@ export class AppComponent {
       this.rgb = convertXYZtoRGB(this.xyz);
       this.hls = convertXYZtoHLS(this.xyz);
       this.color = convertRGBtoHEX(this.rgb);
-      console.log(this.color);
       this.normalize();
     }
   }
@@ -108,7 +106,6 @@ export class AppComponent {
       this.xyz = convertHLStoXYZ(this.hls);
       this.rgb = convertXYZtoRGB(this.xyz);
       this.color = convertRGBtoHEX(this.rgb);
-      console.log(this.color);
       this.normalize();
     }
   }
