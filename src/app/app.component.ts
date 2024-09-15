@@ -1,9 +1,10 @@
 import { Component } from "@angular/core";
-import { ReactiveFormsModule, FormsModule } from "@angular/forms";
+import { FormsModule } from "@angular/forms";
 import { ColorPickerModule } from "ngx-color-picker";
 import { NgClass, NgIf } from "@angular/common";
 import { RGB, XYZ, HLS } from "./models/schemes";
 import {
+  testAllConverters,
   convertHLStoXYZ,
   convertXYZtoHLS,
   convertRGBtoXYZ,
@@ -15,7 +16,7 @@ import {
 @Component({
   selector: "app-root",
   standalone: true,
-  imports: [ColorPickerModule, NgClass, ReactiveFormsModule, FormsModule, NgIf],
+  imports: [ColorPickerModule, NgClass, FormsModule, NgIf],
   templateUrl: "./app.component.html",
   styleUrl: "./app.component.css",
 })
@@ -26,28 +27,52 @@ export class AppComponent {
   hls: HLS = convertXYZtoHLS(this.xyz);
 
   color = convertRGBtoHEX(this.rgb);
+  ngOnInit(): void {
+    this.normalize();
+    testAllConverters();
+  }
+
+  normalize() {
+    this.rgb.r = parseFloat(this.rgb.r.toFixed(2));
+    this.rgb.g = parseFloat(this.rgb.g.toFixed(2));
+    this.rgb.b = parseFloat(this.rgb.b.toFixed(2));
+
+    this.xyz.x = parseFloat(this.xyz.x.toFixed(2));
+    this.xyz.y = parseFloat(this.xyz.y.toFixed(2));
+    this.xyz.z = parseFloat(this.xyz.z.toFixed(2));
+
+    this.hls.h = parseFloat(this.hls.h.toFixed(2));
+    this.hls.l = parseFloat(this.hls.l.toFixed(2));
+    this.hls.s = parseFloat(this.hls.s.toFixed(2));
+  }
 
   reset() {
     this.color = "#000000";
     this.rgb = convertHEXtoRGB(this.color);
     this.xyz = convertRGBtoXYZ(this.rgb);
     this.hls = convertXYZtoHLS(this.xyz);
+    this.normalize();
   }
   onColorChange(event: any) {
     this.rgb = convertHEXtoRGB(this.color);
     this.xyz = convertRGBtoXYZ(this.rgb);
     this.hls = convertXYZtoHLS(this.xyz);
+    this.normalize();
   }
+
   onRGBChange(event: any) {
-    for (const key in this.rgb) {
-      const value = this.rgb[key as keyof RGB];
-      if (value < 0 || value > 255) {
-        this.rgb[key as keyof RGB] = 0;
+    if (event != null) {
+      for (const key in this.rgb) {
+        const value = this.rgb[key as keyof RGB];
+        if (value < 0 || value > 255) {
+          this.rgb[key as keyof RGB] = 0;
+        }
       }
+      this.xyz = convertRGBtoXYZ(this.rgb);
+      this.hls = convertXYZtoHLS(this.xyz);
+      this.color = convertRGBtoHEX(this.rgb);
+      this.normalize();
     }
-    this.xyz = convertRGBtoXYZ(this.rgb);
-    this.hls = convertXYZtoHLS(this.xyz);
-    this.color = convertRGBtoHEX(this.rgb);
   }
 
   onXYZChange(event: any) {
@@ -63,6 +88,7 @@ export class AppComponent {
     this.rgb = convertXYZtoRGB(this.xyz);
     this.hls = convertXYZtoHLS(this.xyz);
     this.color = convertRGBtoHEX(this.rgb);
+    this.normalize();
   }
   onHLSChange(event: any) {
     if (this.hls.h < 0 || this.hls.h > 360) {
@@ -77,6 +103,7 @@ export class AppComponent {
     this.xyz = convertHLStoXYZ(this.hls);
     this.rgb = convertXYZtoRGB(this.xyz);
     this.color = convertRGBtoHEX(this.rgb);
+    this.normalize();
   }
 
   xyzzmin = 1;
