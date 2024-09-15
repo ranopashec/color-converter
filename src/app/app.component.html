@@ -5,7 +5,7 @@
             (mouseleave)="hoverRGB=false">
             <p>R</p>
             <section class=" RGB" id="R">
-                <input type="number" [(ngModel)]="rgb.r" (ngModelChange)="onRGBChange($event)">
+                <input type="text" [(ngModel)]="rgb.r" (ngModelChange)="onRGBChange($event)">
                 <input class="slider" type="range" min="0" max="255" [(ngModel)]="rgb.r"
                     (ngModelChange)="onRGBChange($event)">
             </section>

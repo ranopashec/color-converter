@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { FormsModule } from "@angular/forms";
+import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { ColorPickerModule } from "ngx-color-picker";
 import { NgClass, NgIf } from "@angular/common";
 import { RGB, XYZ, HLS } from "./models/schemes";
@@ -15,7 +15,7 @@ import {
 @Component({
   selector: "app-root",
   standalone: true,
-  imports: [ColorPickerModule, NgClass, FormsModule, NgIf],
+  imports: [ColorPickerModule, NgClass, ReactiveFormsModule, FormsModule, NgIf],
   templateUrl: "./app.component.html",
   styleUrl: "./app.component.css",
 })

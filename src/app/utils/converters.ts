@@ -66,9 +66,9 @@ export function convertXYZtoRGB(xyz: XYZ): RGB {
   b = b > 0.0031308 ? 1.055 * Math.pow(b, 1 / 2.4) - 0.055 : 12.92 * b;
 
   return {
-    r: Math.round(Math.max(0, Math.min(1, r)) * 255),
-    g: Math.round(Math.max(0, Math.min(1, g)) * 255),
-    b: Math.round(Math.max(0, Math.min(1, b)) * 255),
+    r: Math.max(0, Math.min(1, r)) * 255,
+    g: Math.max(0, Math.min(1, g)) * 255,
+    b: Math.max(0, Math.min(1, b)) * 255,
   };
 }
 
@@ -104,9 +104,9 @@ export function convertRGBtoHLS(rgb: RGB): HLS {
   }
 
   return {
-    h: Math.round(h * 360),
-    s: Math.round(s * 100),
-    l: Math.round(l * 100),
+    h: h * 360,
+    s: s * 100,
+    l: l * 100,
   };
 }
 
@@ -138,9 +138,9 @@ export function convertHLStoRGB(hls: HLS): RGB {
   }
 
   return {
-    r: Math.round(r * 255),
-    g: Math.round(g * 255),
-    b: Math.round(b * 255),
+    r: r * 255,
+    g: g * 255,
+    b: b * 255,
   };
 }
 
