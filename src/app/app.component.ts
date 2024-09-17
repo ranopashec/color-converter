@@ -4,7 +4,6 @@ import { ColorPickerModule } from "ngx-color-picker";
 import { NgClass, NgIf } from "@angular/common";
 import { RGB, XYZ, HLS } from "./models/schemes";
 import {
-  testAllConverters,
   convertHLStoXYZ,
   convertXYZtoHLS,
   convertRGBtoXYZ,
@@ -12,6 +11,7 @@ import {
   convertHEXtoRGB,
   convertRGBtoHEX,
 } from "./utils/converters";
+import { testAllConverters } from "./utils/tests";
 
 @Component({
   selector: "app-root",
